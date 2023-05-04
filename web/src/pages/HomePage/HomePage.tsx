@@ -1,10 +1,28 @@
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Grid,
+  GridItem,
+  Heading,
+  Input,
+} from '@chakra-ui/react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
+import { useForm, Form } from '@redwoodjs/forms'
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
 const HomePage = () => {
+  const { register, handleSubmit, reset } = useForm()
+
+  const onFormSubmit = (data) => {
+    console.log(data)
+    reset()
+  }
+
   return (
     <>
       <MetaTags title="Home" description="Home page" />
@@ -17,8 +35,21 @@ const HomePage = () => {
         }}
         gap={2}
       >
-        <GridItem>
-          <h1>Local Parks Finder</h1>
+        <GridItem p={4}>
+          <Heading as="h2" size="lg">
+            Local Parks Finder
+          </Heading>
+          <Box mt={5}>
+            <Form onSubmit={handleSubmit(onFormSubmit)}>
+              <FormControl>
+                <FormLabel>Input your address</FormLabel>
+                <Input type="text" {...register('address')} />
+              </FormControl>
+              <Button type="submit" colorScheme="blue" mt={2}>
+                Search
+              </Button>
+            </Form>
+          </Box>
         </GridItem>
         <GridItem colSpan={2}>
           <MapContainer
