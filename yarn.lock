@@ -9413,6 +9413,7 @@ __metadata:
   dependencies:
     "@redwoodjs/api": 5.0.3
     "@redwoodjs/graphql-server": 5.0.3
+    nominatim-client: ^3.2.1
   languageName: unknown
   linkType: soft
 
@@ -19642,6 +19643,13 @@ __metadata:
   bin:
     nodemon: bin/nodemon.js
   checksum: 37e960b995b66e6d9e3b0e435ecc07a45200c4c566c4820a4deb6e7cc234b305e076a8ff0b4dc9c01ee690c663ae82a217d60c591dcbbcd4af1e3a7d0ad2b2c6
+  languageName: node
+  linkType: hard
+
+"nominatim-client@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "nominatim-client@npm:3.2.1"
+  checksum: c45ae11685936b3f4db08ccae8b693b9eb177ae5824c798ec535eb63ca5e50d47fb684130757d8fd54eb3728fc73e2b996dde95eafc7d9f3828948cee2331f88
   languageName: node
   linkType: hard
 

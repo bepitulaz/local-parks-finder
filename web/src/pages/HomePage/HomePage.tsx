@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Flex,
   FormControl,
   FormLabel,
   Grid,
@@ -12,14 +11,18 @@ import {
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import { useForm, Form } from '@redwoodjs/forms'
-import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
+
+import AddressList from 'src/components/AddressList/AddressList'
+import { useSearchAddress } from 'src/side-effects/parks'
 
 const HomePage = () => {
   const { register, handleSubmit, reset } = useForm()
 
+  const { searchAddress, loading: addressLoading, data } = useSearchAddress()
+
   const onFormSubmit = (data) => {
-    console.log(data)
+    searchAddress({ variables: { address: data?.address } })
     reset()
   }
 
@@ -50,6 +53,10 @@ const HomePage = () => {
               </Button>
             </Form>
           </Box>
+          <AddressList
+            isLoading={addressLoading}
+            addresses={data?.searchAddress || []}
+          />
         </GridItem>
         <GridItem colSpan={2}>
           <MapContainer
