@@ -1,6 +1,6 @@
-export const SEARCH_ADDRESS = gql`
-  mutation SearchAddress($address: String!) {
-    searchAddress(address: $address) {
+export const SEARCH_PARKS = gql`
+  mutation SearchParks($address: String!) {
+    searchParks(address: $address) {
       place_id
       licence
       osm_type

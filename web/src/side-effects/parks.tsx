@@ -1,14 +1,18 @@
 import { useMutation } from '@redwoodjs/web'
 
-import { SEARCH_ADDRESS } from 'src/gql/parks'
+import { SEARCH_PARKS } from 'src/gql/parks'
 
-export const useSearchAddress = () => {
-  const [searchAddress, { loading, error, data }] = useMutation(SEARCH_ADDRESS)
+/**
+ * A custom hook that abstracts away the useMutation logic for searching for parks
+ * @returns {Object} An object containing the searchParks mutation, loading, error, and data
+ */
+export const useSearchParks = () => {
+  const [searchParks, { loading, error, data }] = useMutation(SEARCH_PARKS)
 
   return {
-    searchAddress,
+    searchParks,
     loading,
     error,
-    data,
+    addresses: data?.searchParks || [],
   }
 }

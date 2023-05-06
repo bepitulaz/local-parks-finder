@@ -1,12 +1,4 @@
-import {
-  Container,
-  Box,
-  Text,
-  Spinner,
-  Flex,
-  Stack,
-  Button,
-} from '@chakra-ui/react'
+import { Container, Box, Text, Spinner, Stack, Button } from '@chakra-ui/react'
 
 const AddressList = ({ addresses, isLoading }) => {
   if (isLoading) {
@@ -37,6 +29,10 @@ export default AddressList
 const AddressListItem = ({ address }) => {
   const classType = [address?.class, address?.type].join(', ')
 
+  const onShowParks = (address) => {
+    console.log(address)
+  }
+
   return (
     <Box
       borderColor="gray.200"
@@ -47,8 +43,14 @@ const AddressListItem = ({ address }) => {
     >
       <Text fontWeight="bold">{address?.display_name}</Text>
       <Text color="gray.600">{classType}</Text>
-      <Button size="sm" mt={3}>
-        Show parks near here
+      <Button
+        size="sm"
+        mt={3}
+        onClick={() => {
+          onShowParks(address)
+        }}
+      >
+        Show the park
       </Button>
     </Box>
   )

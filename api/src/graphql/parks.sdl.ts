@@ -1,6 +1,6 @@
 export const schema = gql`
   type Mutation {
-    searchAddress(address: String!): [Address] @skipAuth
+    searchParks(address: String!): [Address] @skipAuth
   }
 
   type Address {

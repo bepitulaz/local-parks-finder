@@ -14,15 +14,15 @@ import { useForm, Form } from '@redwoodjs/forms'
 import { MetaTags } from '@redwoodjs/web'
 
 import AddressList from 'src/components/AddressList/AddressList'
-import { useSearchAddress } from 'src/side-effects/parks'
+import { useSearchParks } from 'src/side-effects/parks'
 
 const HomePage = () => {
   const { register, handleSubmit, reset } = useForm()
 
-  const { searchAddress, loading: addressLoading, data } = useSearchAddress()
+  const { searchParks, loading: parksLoading, addresses } = useSearchParks()
 
   const onFormSubmit = (data) => {
-    searchAddress({ variables: { address: data?.address } })
+    searchParks({ variables: { address: data?.address } })
     reset()
   }
 
@@ -53,10 +53,7 @@ const HomePage = () => {
               </Button>
             </Form>
           </Box>
-          <AddressList
-            isLoading={addressLoading}
-            addresses={data?.searchAddress || []}
-          />
+          <AddressList isLoading={parksLoading} addresses={addresses} />
         </GridItem>
         <GridItem colSpan={2}>
           <MapContainer
