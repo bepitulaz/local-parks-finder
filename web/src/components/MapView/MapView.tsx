@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 
 // This is a workaround for a bug in react-leaflet
 // See this issue for more info: https://github.com/PaulLeCam/react-leaflet/issues/453
@@ -52,8 +52,15 @@ const MapView = ({ parks, markerRef }) => {
           </Marker>
         )
       })}
+      <SetMapCenterOnDataLoad centerPosition={centerPosition} />
     </MapContainer>
   )
 }
 
 export default MapView
+
+const SetMapCenterOnDataLoad = ({ centerPosition }) => {
+  const map = useMap()
+  map.setView(centerPosition, map.getZoom())
+  return null
+}
