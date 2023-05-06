@@ -1,6 +1,6 @@
 import { Container, Box, Text, Spinner, Stack, Button } from '@chakra-ui/react'
 
-const AddressList = ({ addresses, isLoading }) => {
+const AddressList = ({ addresses, isLoading, onShowPark }) => {
   if (isLoading) {
     return (
       <Container mt={5} centerContent>
@@ -18,7 +18,14 @@ const AddressList = ({ addresses, isLoading }) => {
   return (
     <Stack mt={5} gap={2} height={500} overflow={'scroll'}>
       {addresses?.map((address, idx) => {
-        return <AddressListItem key={`address-${idx}`} address={address} />
+        return (
+          <AddressListItem
+            key={`address-${idx}`}
+            address={address}
+            onShowPark={onShowPark}
+            idx={idx}
+          />
+        )
       })}
     </Stack>
   )
@@ -26,12 +33,8 @@ const AddressList = ({ addresses, isLoading }) => {
 
 export default AddressList
 
-const AddressListItem = ({ address }) => {
+const AddressListItem = ({ address, onShowPark, idx }) => {
   const classType = [address?.class, address?.type].join(', ')
-
-  const onShowParks = (address) => {
-    console.log(address)
-  }
 
   return (
     <Box
@@ -47,7 +50,7 @@ const AddressListItem = ({ address }) => {
         size="sm"
         mt={3}
         onClick={() => {
-          onShowParks(address)
+          onShowPark(idx)
         }}
       >
         Show the park

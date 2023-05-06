@@ -9,7 +9,7 @@ export const searchParks = ({ address }) => {
   }
   const client = nominatim.createClient({
     useragent: 'LocalParkFinder',
-    referer: 'http://localhost:8910',
+    referer: process.env?.REFERRER ?? 'http://localhost:8910',
   })
 
   return client.search(query)

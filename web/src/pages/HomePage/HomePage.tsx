@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+
 import {
   Box,
   Button,
@@ -8,15 +10,17 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
 import { useForm, Form } from '@redwoodjs/forms'
 import { MetaTags } from '@redwoodjs/web'
 
 import AddressList from 'src/components/AddressList/AddressList'
+import MapView from 'src/components/MapView/MapView'
 import { useSearchParks } from 'src/side-effects/parks'
 
 const HomePage = () => {
+  const markerRef = useRef([])
+
   const { register, handleSubmit, reset } = useForm()
 
   const { searchParks, loading: parksLoading, addresses } = useSearchParks()
@@ -24,6 +28,13 @@ const HomePage = () => {
   const onFormSubmit = (data) => {
     searchParks({ variables: { address: data?.address } })
     reset()
+  }
+
+  const onShowPark = (idx) => {
+    const marker = markerRef.current[idx]
+    if (marker) {
+      marker.openPopup()
+    }
   }
 
   return (
@@ -53,24 +64,14 @@ const HomePage = () => {
               </Button>
             </Form>
           </Box>
-          <AddressList isLoading={parksLoading} addresses={addresses} />
+          <AddressList
+            isLoading={parksLoading}
+            addresses={addresses}
+            onShowPark={onShowPark}
+          />
         </GridItem>
         <GridItem colSpan={2}>
-          <MapContainer
-            center={[51.505, -0.09]}
-            zoom={13}
-            scrollWheelZoom={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[51.505, -0.09]}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
+          <MapView parks={addresses} markerRef={markerRef} />
         </GridItem>
       </Grid>
     </>
